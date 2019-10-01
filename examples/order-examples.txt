@@ -25,7 +25,7 @@ reduce(lambda x, y: x + y, inpt) / len(inpt) #invariant
 sorted(inpt)[0] #invariant
 reduce(lambda x, y: x + y, filter(lambda x: x > 20, inpt)) #invariant
 reduce(lambda a,x: a + x, inpt) #variant
-input + sorted(inpt) #variant
+inpt + sorted(inpt) #variant
 reduce((lambda x, y: x * y), inpt) #invariant
 reduce(lambda x,y: y, inpt) #variant
 
