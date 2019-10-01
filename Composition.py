@@ -63,6 +63,16 @@ class OrderInvarianceAnalyzer(ast.NodeVisitor):
     def visit_Index(self,node):
         return self.childVisit(node.value)
 
+    def visit_Slice(self,node):
+        parts = []
+        if node.lower is not None:
+            parts.append(self.childVisit(node.lower))
+        if node.upper is not None:
+            parts.append(self.childVisit(node.upper))
+        if node.step is not None:
+            parts.append(self.childVisit(node.step))
+        return functools.reduce(lambda x,y: x and y, parts, True)
+
     def visit_Load(self,node):
         pass #Nop
 
