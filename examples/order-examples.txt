@@ -1,0 +1,33 @@
+list(filter(lambda x: x % 2 != 0 and x % 3 != 0, range(2, 25))) #invariant
+list(map(lambda x: x*x*x, range(1, 11))) #invariant
+list(reduce(lambda x,y: x + y, range(1, 11))) #invariant
+list(filter(lambda x: x % 2 != 0 and x % 3 != 0, inpt)) #variant
+list(map(lambda x: x*x*x, inpt)) #variant
+list(reduce(lambda x,y: x + y, inpt)) #invariant
+len(list(filter(lambda x: x % 2 != 0 and x % 3 != 0, inpt))) #invariant
+len(list(map(lambda x: x*x*x, inpt))) #invariant
+list(map(hex, filter(lambda x: x > 20, range(0, 100)))) #invariant
+list(map(hex, filter(lambda x: x > 20, inpt))) #variant
+3 in [1, 2, 3] #invariant
+3 in inpt #invariant
+inpt.index(2) #variant
+inpt[0] #variant
+filter(lambda x: x % 3 == 0, [1, 2, 3, 4, 5, 6, 7, 8, 9]) #invariant
+list(filter(lambda a: a != 2, inpt)) #variant
+inpt.count(3) #invariant
+sorted(inpt) #invariant
+reversed(inpt) #variant
+list(reversed(sorted(inpt))) #invariant
+sum(inpt) #invariant
+reduce(lambda a,d: 10*a+d, [1,2,3,4,5,6,7,8], 0) #invariant
+reduce(lambda a,d: 10*a+d, inpt, 0) #variant
+reduce(lambda x, y: x + y, inpt) / len(inpt) #invariant
+sorted(inpt)[0] #invariant
+reduce(lambda x, y: x + y, filter(lambda x: x > 20, inpt)) #invariant
+reduce(lambda a,x: a + x, inpt) #variant
+input + sorted(inpt) #variant
+reduce((lambda x, y: x * y), inpt) #invariant
+reduce(lambda x,y: y, inpt) #variant
+
+#Collected from stackoverflow
+#(No variables - no order)
