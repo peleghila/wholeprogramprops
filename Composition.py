@@ -25,18 +25,20 @@ class OrderInvarianceAnalyzer(ast.NodeVisitor):
             all_args.append(self.childVisit(node.func.value))
         else:
             fname = node.func.id
-        if fname in ["sorted","len","sum"]:
+        if fname in ["sorted","len","sum","count"]:
             return True
         elif fname in ["map","filter"]:
             #is iter1 a variable
             return self.childVisit(node.args[1])
+        elif fname == "reduce":
+            return None #placeholder
         else:
             all_args.extend(self.childVisit(node.args))
             all_args.extend(self.childVisit(node.keywords))
             return functools.reduce(lambda x,y: x and y, all_args,True)
     def visit_Lambda(self,node):
         #print("Lambda with args: " + ",".join([a.arg for a in node.args.args]))
-        self.childVisit(node.body)
+        return self.childVisit(node.body)
 
     def visit_BoolOp(self,node):
         opName = type(node.op).__name__
