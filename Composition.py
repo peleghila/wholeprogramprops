@@ -50,11 +50,22 @@ class OrderInvarianceAnalyzer(ast.NodeVisitor):
 
     def visit_Compare(self,node):
         #print("Comparator")
+        if (len(node.ops) == 1 and isinstance(node.ops[0],ast.In)):
+            return True #if it's there, it's there, regardless of order
         self.childVisit(node.left)
         self.childVisit(node.comparators)
 
+    def visit_Subscript(self,node):
+        return self.childVisit(node.value) and self.childVisit(node.slice)
+
+    def visit_Index(self,node):
+        return self.childVisit(node.value)
+
     def visit_Load(self,node):
         pass #Nop
+
+    def visit_List(self,node):
+        return functools.reduce(lambda x,y: x and y, self.childVisit(node.elts), True)
 
     def visit_Num(self,node):
         return True
